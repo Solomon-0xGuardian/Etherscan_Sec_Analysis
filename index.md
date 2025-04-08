@@ -10,3 +10,15 @@ Contract Address:
 
 Github Review:
 https://github.com/ethereum/EIPs/issues/20
+
+<b>Fix for ERC20 short address attack</b>
+
+This part of the example code requres the address to be of correct length. If the length is incorrect, say by one int, then an appended 0 can cause the funds to be redirected incorrectly or fail and become permanently locked.
+
+   /**
+    * @dev Fix for the ERC20 short address attack.
+    */
+    modifier onlyPayloadSize(uint size) {
+        require(!(msg.data.length < size + 4));
+        _;
+    }
